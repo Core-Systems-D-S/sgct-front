@@ -120,57 +120,77 @@ Estructura orientada a features y capas reutilizables:
 
 ---
 
-## 🚀 Instalación y ejecución (Frontend)
+## 🚀 Ejecución en local
+
+Para correr el proyecto completo necesitas dos terminales abiertas en paralelo: una para el backend y otra para el frontend.
+
+### 🔙 Terminal 1 — Backend
+
+> Requisito: tener el repositorio del backend clonado y el entorno virtual activado.
 
 ```bash
-# Clonar repositorio
-git clone <URL_FRONTEND>
-cd sgct-front
+python manage.py runserver
+```
 
-# Instalar dependencias
+El backend queda disponible en `http://localhost:8000`.
+
+---
+
+### 🎨 Terminal 2 — Frontend
+
+> Primera vez: instalar dependencias.
+
+```bash
 npm install
-
-# Configurar variables de entorno
-# Editar .env.local si necesitas cambiar la URL del backend
-
-# Ejecutar aplicación en desarrollo
 npm run dev
 ```
 
-Scripts disponibles:
+> Las veces siguientes (ya con `node_modules` instalado):
 
-- `npm run dev` - Inicia servidor de desarrollo
-- `npm run build` - Compila para producción
-- `npm run preview` - Previsualiza build de producción
+```bash
+npm run dev
+```
+
+El frontend queda disponible en `http://localhost:5173`.
 
 ---
 
 ## ⚙️ Variables de entorno
 
-Archivo:
+El archivo `.env.local` está en `.gitignore` y no se sube al repositorio. Copia el archivo de ejemplo para crearlo:
 
-- `.env.local`
+```bash
+cp .env.local.example .env.local
+```
 
-Variable requerida:
+Contenido por defecto (no requiere cambios si el backend corre en el puerto estándar):
 
 ```env
 VITE_API_BASE_URL=http://localhost:8000
 ```
 
-Esta URL debe apuntar al backend SGCT en ejecución.
+---
+
+## 📜 Scripts disponibles
+
+| Comando | Descripción |
+|---|---|
+| `npm run dev` | Inicia servidor de desarrollo |
+| `npm run build` | Compila para producción |
+| `npm run preview` | Previsualiza el build de producción |
 
 ---
 
 ## 🔌 Integración API
 
-Base URL configurada mediante Axios instance:
+Base URL configurada en `src/services/axiosInstance.ts` mediante la variable de entorno `VITE_API_BASE_URL`.
 
-- `VITE_API_BASE_URL`
+Endpoints utilizados por el frontend:
 
-Endpoints de autenticación utilizados por el frontend:
-
-- `POST /api/v1/users/` - Registro
-- `POST /api/token/` - Login JWT
+| Método | Endpoint | Descripción |
+|---|---|---|
+| `POST` | `/api/v1/users/` | Registro de usuario |
+| `POST` | `/api/token/` | Login — obtención de JWT |
 
 ---
 
